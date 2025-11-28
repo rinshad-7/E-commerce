@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
  export async function connectDb (){
     try{
-       await mongoose.connect("mongodb://127.0.0.1:27017/clotheCommerce")
+       await mongoose.connect("mongodb+srv://rinshadmelethalakkal123_db_user:6MY31ixFTpuI9qmg@cluster0.i9tpogi.mongodb.net/?appName=Cluster0/clotheCommerce")
        console.log("database connection successfull");
        
     }catch(err){

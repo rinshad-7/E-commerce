@@ -12,18 +12,20 @@ import cors from "cors"
 dotenv.config();
 connectDb();
 
-const app = express();
-app.use('/productImages', express.static('productImages'))
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const server = express();
+const app = express.Router()
 
-app.use(cors({
+server.use('/productImages', express.static('productImages'))
+server.use(express.json());
+server.use(express.urlencoded({ extended: true }));
+
+server.use(cors({
   origin: ["http://16.170.231.213"],
   credentials: true
 }));
 
 
-app.use(session({
+server.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: false,
@@ -35,10 +37,12 @@ app.use(session({
 
 
 
-app.use("/api/admin", adminRouter);
-app.use("/api/", userRouter);
-app.use("/api/", publicRouter);
+app.use("/admin", adminRouter);
+app.use("/", userRouter);
+app.use("/", publicRouter);
 
-app.listen(3000, () => {
+server.use('/api', app)
+
+server.listen(3000, () => {
   console.log("Server running on port 3000");
 });

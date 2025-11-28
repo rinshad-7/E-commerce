@@ -63,36 +63,36 @@ export async function loginuser(req, res) {
     try {
         const { Email, password } = req.body
 
-        const existinguser = await users.findOne({ Email: Email })
+        const existingUser = await users.findOne({ Email: Email })
 
-        if (!existinguser) {
+        if (!existingUser) {
             return res.json("Email not found")
         }
 
-        const pass = await bcrypt.compare(password, existinguser.password);
+        const pass = await bcrypt.compare(password, existingUser.password);
 
         if (!pass) {
             return res.json("password is incorrect")
         }
 
-        if (existinguser.role === "admin") {
+        if (existingUser.role === "admin") {
             return res.json("this page for users")
         }
 
 
-        req.session.role = existinguser.role
-        req.session.userId = existinguser._id
+        req.session.role = existingUser.role
+        req.session.userId = existingUser._id
 
 
         return res.status(200).json({
-            message: `${existinguser.username} you successfully loggedin`,
+            message: `${existingUser.username} you successfully loggedin`,
             success: true,
-            userId: existinguser._id
+            userId: existingUser._id
         })
 
     } catch (err) {
         console.error(err)
-       return res.status(400).json({msg:err})
+        return res.status(400).json({ msg: err })
     }
 }
 
@@ -151,24 +151,24 @@ export async function publicProduct(req, res) {
     }
 }
 
-export async function probycategory(req,res) {
-    try{
+export async function probycategory(req, res) {
+    try {
 
         const { id } = req.params;
 
-        const selectedProducts = await products.find({categories: id});
+        const selectedProducts = await products.find({ categories: id });
         const catName = await categories.findById(id)
 
         return res.status(200).json({
-            products:selectedProducts,
+            products: selectedProducts,
             category_name: catName.name
         });
 
-    }catch (err) {
-        console.error("error fetching products by category" ,err);
+    } catch (err) {
+        console.error("error fetching products by category", err);
         return res.status(500).json([]);
 
 
     }
-    
+
 }

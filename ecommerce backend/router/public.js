@@ -6,7 +6,7 @@ const publicRouter = express.Router()
 
 publicRouter.post("/register",registerUser)
 
-publicRouter.post("/api/login",loginuser)
+publicRouter.post("/login",loginuser)
 publicRouter.get("/logout",logoutuser)
 publicRouter.get("/category",publicCategory)
 publicRouter.get("/category/:id",probycategory)

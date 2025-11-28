@@ -84,7 +84,7 @@ export async function loginuser(req, res) {
         req.session.userId = existinguser._id
 
 
-        res.status(200).json({
+        return res.status(200).json({
             message: `${existinguser.username} you successfully loggedin`,
             success: true,
             userId: existinguser._id
@@ -92,6 +92,7 @@ export async function loginuser(req, res) {
 
     } catch (err) {
         console.error(err)
+       return res.status(400).json({msg:err})
     }
 }
 

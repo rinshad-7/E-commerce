@@ -14,7 +14,7 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/register', { username:name,Email:email, password,repassword:password });
+      const res = await api.post('/api/register', { username:name,Email:email, password,repassword:password });
       const user = res.data.user
    setUser(user)
       

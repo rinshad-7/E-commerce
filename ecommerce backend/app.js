@@ -35,9 +35,9 @@ app.use(session({
 
 
 
-app.use("/admin", adminRouter);
-app.use("/", userRouter);
-app.use("/", publicRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/", userRouter);
+app.use("/api/", publicRouter);
 
 app.listen(3000, () => {
   console.log("Server running on port 3000");
